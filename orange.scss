@@ -20,7 +20,7 @@
   @include column;
 }
 
-@mixin make-column($i) { 
+@mixin make-offset($i) { 
   margin-left: (100% / (12 / $i));
   @include column;
 }
