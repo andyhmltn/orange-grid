@@ -42,8 +42,38 @@ $container-width: 100%;
 @mixin column {
   float: left;
 }
-@mixin make-column($i) { 
+@mixin make-column-width($i) {
   width: ($container-width / ($columns-per-row / $i));
+}
+
+@mixin make-column($i, $size: 'default') { 
+  // Responsive
+  
+  // Mobile first
+  width: 100%;
+  
+  @if $size == 'default' {
+    @include make-column-width($i);
+  }
+
+  @if $size == 'large' {
+    @media only screen and (min-width : 768px) {
+      @include make-column-width($i);
+    }
+  }
+
+  @if $size == 'medium' {
+    @media only screen and (min-width: 480px) and (max-width: 1024px) {
+       @include make-column-width($i);
+    }
+  }
+
+  @if $size == 'small' {
+    @media only screen and (max-width: 480px) {
+      @include make-column-width($i);
+    }
+  }
+
   @include column;
 }
 
@@ -56,10 +86,12 @@ $container-width: 100%;
   @include container;
 }
 
-@for $i from 1 to 12 {
-  .column-#{$i} {
-    @include make-column($i);
-  }
+@for $i from 1 to $columns-per-row { 
+  .column-#{$i} { @include make-column($i); }
+
+  .column-lg-#{$i} { @include make-column($i, 'large'); }
+  .column-md-#{$i} { @include make-column($i, 'medium'); }
+  .column-sm-#{$i} { @include make-column($i, 'small'); }
 
   .offset-#{$i} {
     @include make-offset($i);
