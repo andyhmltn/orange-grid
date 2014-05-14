@@ -49,8 +49,8 @@ $container-width: 100%;
 @mixin make-column($i, $size: 'default') { 
   // Responsive
   
-  // Mobile first
-  width: 100%;
+  // // Mobile first
+  // width: 100%;
   
   @if $size == 'default' {
     @include make-column-width($i);
